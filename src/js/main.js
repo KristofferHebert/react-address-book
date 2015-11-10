@@ -61,11 +61,11 @@ var AddressList = React.createClass({
         return (
             <table>
                 <tr>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Street</td>
-                    <td>State</td>
-                    <td>Zip</td>
+                    <th>First Name</th>
+                <th>Last Name</th>
+            <th>Street</th>
+        <th>State</th>
+    <th>Zip</th>
                 </tr>
                 {AddressTable}
             </table>

@@ -63,27 +63,27 @@ var AddressList = React.createClass({
                 'tr',
                 null,
                 React.createElement(
-                    'td',
+                    'th',
                     null,
                     'First Name'
                 ),
                 React.createElement(
-                    'td',
+                    'th',
                     null,
                     'Last Name'
                 ),
                 React.createElement(
-                    'td',
+                    'th',
                     null,
                     'Street'
                 ),
                 React.createElement(
-                    'td',
+                    'th',
                     null,
                     'State'
                 ),
                 React.createElement(
-                    'td',
+                    'th',
                     null,
                     'Zip'
                 )

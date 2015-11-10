@@ -1,0 +1,47 @@
+// Variables
+
+$light-gray: #f9fafd;
+$gray: #282d35;
+$dark-gray: #373737;
+$border: rgba(0,0,0,.1);
+
+// base classes
+
+
+body {
+    color: $gray;
+    font-size: 100%;
+    font-family: 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 10px;
+    border: 1px solid $border;
+    overflow: hidden;
+}
+
+td, th {
+    padding: 1.4em;
+    border: 1px solid $border;
+}
+th {
+    @extend .tc;
+    @extend .light-gray-bg;
+}
+h1,h2,h3 {
+    color: $dark-gray
+}
+
+// helper classes
+
+.light-gray-bg {
+    background: $light-gray;
+}
+
+.tc {
+    text-align: center;
+}
