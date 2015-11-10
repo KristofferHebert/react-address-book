@@ -60,6 +60,13 @@ var AddressList = React.createClass({
         console.log(AddressTable)
         return (
             <table>
+                <tr>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Street</td>
+                    <td>State</td>
+                    <td>Zip</td>
+                </tr>
                 {AddressTable}
             </table>
         )
@@ -68,8 +75,14 @@ var AddressList = React.createClass({
 
 var AddressItem = React.createClass({
     render: function(){
+        console.log(this.props.address)
         return (
-          <tr><td>{this.props.address}</td></tr>
+          <tr><td>{this.props.address.FirstName}</td>
+              <td>{this.props.address.LastName}</td>
+              <td>{this.props.address.Street}</td>
+              <td>{this.props.address.State}</td>
+              <td>{this.props.address.Zip}</td>
+          </tr>
         )
     }
 })

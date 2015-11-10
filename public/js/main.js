@@ -59,6 +59,35 @@ var AddressList = React.createClass({
         return React.createElement(
             'table',
             null,
+            React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                    'td',
+                    null,
+                    'First Name'
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'Last Name'
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'Street'
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'State'
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'Zip'
+                )
+            ),
             AddressTable
         );
     }
@@ -66,13 +95,34 @@ var AddressList = React.createClass({
 
 var AddressItem = React.createClass({
     render: function render() {
+        console.log(this.props.address);
         return React.createElement(
             'tr',
             null,
             React.createElement(
                 'td',
                 null,
-                this.props.address
+                this.props.address.FirstName
+            ),
+            React.createElement(
+                'td',
+                null,
+                this.props.address.LastName
+            ),
+            React.createElement(
+                'td',
+                null,
+                this.props.address.Street
+            ),
+            React.createElement(
+                'td',
+                null,
+                this.props.address.State
+            ),
+            React.createElement(
+                'td',
+                null,
+                this.props.address.Zip
             )
         );
     }

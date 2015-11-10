@@ -7,13 +7,6 @@ var db = [{
   Zip: "98087"
 }, {
   City: "Seattle",
-  FirstName: "First 0",
-  LastName: "Last",
-  State: "WA",
-  Street: "Sample street 123",
-  Zip: "98087"
-}, {
-  City: "Seattle",
   FirstName: "First 1",
   LastName: "Last",
   State: "WA",
