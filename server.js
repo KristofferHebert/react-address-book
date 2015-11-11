@@ -14,7 +14,7 @@ app.get('/', function handleHomePage(req, res){
 })
 
 app.get('/api/address', function handleHomePage(req, res){
-    res.json({'address': address})
+    res.json({'data': address})
 })
 
 // Launch server

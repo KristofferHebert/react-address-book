@@ -12,10 +12,10 @@ var AddressContainer = React.createClass({
 
         // when request returns a result set state
         request.onreadystatechange = function () {
-            if (request.readyState === 4 && request.status === 200) {
+            if (request.readyState >= 4 && request.status >= 200) {
                 var addresses = JSON.parse(request.responseText);
                 if (self.isMounted()) {
-                    self.setState({ addresses: addresses.address });
+                    self.setState({ addresses: addresses.data });
                     console.log('mounted');
                 }
             }
@@ -27,7 +27,6 @@ var AddressContainer = React.createClass({
     },
 
     render: function render() {
-        console.log(this.state.addresses);
         return React.createElement(
             'div',
             null,
@@ -37,25 +36,89 @@ var AddressContainer = React.createClass({
 });
 
 var AddressPage = React.createClass({
+    getDefaultProps: function getDefaultProps() {
+        return {
+            addresses: []
+        };
+    },
+    handlePageChange: function handlePageChange(page) {
+        var newPage = this.stage + page < 1 ? 1 : this.stage + page;
+        this.setState({
+            page: newPage
+        });
+    },
+    handlePageSizeChange: function handlePageSizeChange(pageSize) {
+        this.setState({
+            pageSize: pageSize
+        });
+    },
+    populateAddresses: function populateAddresses(addressArray) {
+        var end = this.state.page * this.state.pageSize;
+        var index = end - this.state.pageSize;
+        index = this.state.page === 1 ? -1 : index;
+        var result = Array(end);
+        while (index++ < end) {
+            result[index] = addressArray[index];
+        }
+        return result;
+    },
     getInitialState: function getInitialState() {
         return {
             page: 1,
-            pageSize: 100,
+            pageSize: 25,
             pageSizeDefaults: [5, 10, 25, 50, 75, 100]
         };
     },
     render: function render() {
-        return React.createElement(AddressList, { addresses: this.props.addresses });
+        var addresses = this.populateAddresses(this.props.addresses);
+        console.log(addresses);
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(AddressPageDropdown, { pageSizeDefaults: this.state.pageSizeDefaults, handleChange: this.handlePageSizeChange, page: this.state.page }),
+            React.createElement(AddressList, { addresses: addresses })
+        );
+    }
+});
+
+var AddressPageDropdown = React.createClass({
+    getDefaultProps: function getDefaultProps() {
+        return {
+            pageSizeDefaults: 25,
+            page: 1,
+            handleChange: function handleChange() {}
+        };
+    },
+    render: function render() {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'select',
+                null,
+                React.createElement('option', null)
+            )
+        );
     }
 });
 
 var AddressList = React.createClass({
+    getDefaultProps: function getDefaultProps() {
+        return {
+            addresses: [{
+                City: "Seattle",
+                FirstName: "First 0",
+                LastName: "Last",
+                State: "WA",
+                Street: "Sample street 123",
+                Zip: "98087"
+            }]
+        };
+    },
     render: function render() {
-        console.log(this.props);
         var AddressTable = this.props.addresses.map(function (address) {
             return React.createElement(AddressItem, { address: address });
         });
-        console.log(AddressTable);
         return React.createElement(
             'table',
             null,
