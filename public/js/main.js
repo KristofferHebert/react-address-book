@@ -16,7 +16,6 @@ var AddressContainer = React.createClass({
                 var addresses = JSON.parse(request.responseText);
                 if (self.isMounted()) {
                     self.setState({ addresses: addresses.data });
-                    console.log('mounted');
                 }
             }
         };
@@ -28,7 +27,7 @@ var AddressContainer = React.createClass({
 
     render: function render() {
         return React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(AddressPage, { addresses: this.state.addresses })
         );
@@ -36,26 +35,24 @@ var AddressContainer = React.createClass({
 });
 
 var AddressPage = React.createClass({
-    getDefaultProps: function getDefaultProps() {
-        return {
-            addresses: []
-        };
-    },
     handlePageChange: function handlePageChange(page) {
-        var newPage = this.stage + page < 1 ? 1 : this.stage + page;
+        var newPage = this.state.page + page < 1 ? 1 : Number(this.state.page) + page;
         this.setState({
             page: newPage
         });
     },
-    handlePageSizeChange: function handlePageSizeChange(pageSize) {
+    handlePageSizeChange: function handlePageSizeChange(event) {
         this.setState({
-            pageSize: pageSize
+            pageSize: Number(event.target.value)
         });
     },
     populateAddresses: function populateAddresses(addressArray) {
-        var end = this.state.page * this.state.pageSize;
+        var end = this.state.page * this.state.pageSize - 1;
         var index = end - this.state.pageSize;
         index = this.state.page === 1 ? -1 : index;
+
+        console.log(this.state, index, end);
+
         var result = Array(end);
         while (index++ < end) {
             result[index] = addressArray[index];
@@ -65,18 +62,29 @@ var AddressPage = React.createClass({
     getInitialState: function getInitialState() {
         return {
             page: 1,
-            pageSize: 25,
+            pageSize: 5,
             pageSizeDefaults: [5, 10, 25, 50, 75, 100]
         };
     },
     render: function render() {
         var addresses = this.populateAddresses(this.props.addresses);
-        console.log(addresses);
         return React.createElement(
-            'div',
+            "div",
             null,
-            React.createElement(AddressPageDropdown, { pageSizeDefaults: this.state.pageSizeDefaults, handleChange: this.handlePageSizeChange, page: this.state.page }),
+            React.createElement(AddressPageDropdown, { pageSizeDefaults: this.state.pageSizeDefaults, handleChange: this.handlePageSizeChange, page: this.state.page, className: "fl" }),
+            React.createElement(Button, { className: "button", name: "<< Previous", handleClick: this.handlePageChange.bind(null, -1) }),
+            React.createElement(Button, { className: "button", name: "Next >>", handleClick: this.handlePageChange.bind(null, 1) }),
             React.createElement(AddressList, { addresses: addresses })
+        );
+    }
+});
+
+var Button = React.createClass({
+    render: function render() {
+        return React.createElement(
+            "a",
+            { href: "#", className: this.props.className, onClick: this.props.handleClick },
+            this.props.name
         );
     }
 });
@@ -84,19 +92,27 @@ var AddressPage = React.createClass({
 var AddressPageDropdown = React.createClass({
     getDefaultProps: function getDefaultProps() {
         return {
-            pageSizeDefaults: 25,
-            page: 1,
-            handleChange: function handleChange() {}
+            pageSizeDefaults: null,
+            page: null
         };
     },
     render: function render() {
+        var options = this.props.pageSizeDefaults.map(function (value, index) {
+            return React.createElement(
+                "option",
+                { value: value, key: index },
+                value,
+                " items"
+            );
+        });
+
         return React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(
-                'select',
-                null,
-                React.createElement('option', null)
+                "select",
+                { onChange: this.props.handleChange, className: "this.pros.className" },
+                options
             )
         );
     }
@@ -105,85 +121,94 @@ var AddressPageDropdown = React.createClass({
 var AddressList = React.createClass({
     getDefaultProps: function getDefaultProps() {
         return {
-            addresses: [{
-                City: "Seattle",
-                FirstName: "First 0",
-                LastName: "Last",
-                State: "WA",
-                Street: "Sample street 123",
-                Zip: "98087"
-            }]
+            addresses: []
         };
     },
     render: function render() {
-        var AddressTable = this.props.addresses.map(function (address) {
-            return React.createElement(AddressItem, { address: address });
+        var AddressTable = this.props.addresses.map(function (address, index) {
+
+            return React.createElement(AddressItem, { address: address, key: index });
         });
         return React.createElement(
-            'table',
+            "table",
             null,
             React.createElement(
-                'tr',
+                "tbody",
                 null,
                 React.createElement(
-                    'th',
+                    "tr",
                     null,
-                    'First Name'
+                    React.createElement(
+                        "th",
+                        null,
+                        "First Name"
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        "Last Name"
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        "Street"
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        "State"
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        "Zip"
+                    )
                 ),
-                React.createElement(
-                    'th',
-                    null,
-                    'Last Name'
-                ),
-                React.createElement(
-                    'th',
-                    null,
-                    'Street'
-                ),
-                React.createElement(
-                    'th',
-                    null,
-                    'State'
-                ),
-                React.createElement(
-                    'th',
-                    null,
-                    'Zip'
-                )
-            ),
-            AddressTable
+                AddressTable
+            )
         );
     }
 });
 
 var AddressItem = React.createClass({
+    getDefaultProps: function getDefaultProps() {
+        return {
+            address: {
+                City: "Loading...",
+                FirstName: "Loading...",
+                LastName: "Loading...",
+                State: "Loading...",
+                Street: "Loading...",
+                Zip: "Loading..."
+            }
+        };
+    },
     render: function render() {
-        console.log(this.props.address);
         return React.createElement(
-            'tr',
+            "tr",
             null,
             React.createElement(
-                'td',
+                "td",
                 null,
                 this.props.address.FirstName
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
                 this.props.address.LastName
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
                 this.props.address.Street
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
                 this.props.address.State
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
                 this.props.address.Zip
             )
@@ -191,4 +216,4 @@ var AddressItem = React.createClass({
     }
 });
 
-React.render(React.createElement(AddressContainer, { data: '/api/address' }), document.getElementById('app'));
+React.render(React.createElement(AddressContainer, { data: "/api/address" }), document.getElementById('app'));

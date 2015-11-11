@@ -16,7 +16,6 @@ var AddressContainer = React.createClass({
                     var addresses = JSON.parse(request.responseText)
                     if(self.isMounted()){
                         self.setState({addresses: addresses.data})
-                        console.log('mounted')
                     }
                 }
             }
@@ -36,26 +35,24 @@ var AddressContainer = React.createClass({
 })
 
 var AddressPage = React.createClass({
-    getDefaultProps: function() {
-        return {
-            addresses: []
-        }
-    },
     handlePageChange: function(page){
-            var newPage = (this.stage + page < 1) ? 1 : this.stage + page
+            var newPage = (this.state.page + page < 1) ? 1 : (Number(this.state.page) + page)
             this.setState({
                 page: newPage
             })
     },
-    handlePageSizeChange: function(pageSize){
+    handlePageSizeChange: function(event){
             this.setState({
-                pageSize: pageSize
+                pageSize: Number(event.target.value)
             })
     },
     populateAddresses: function(addressArray){
-        var end = this.state.page * this.state.pageSize
+        var end = this.state.page * this.state.pageSize -1
         var index = end - this.state.pageSize
         index = (this.state.page === 1) ? -1 : index
+
+        console.log(this.state,index, end)
+
         var result = Array(end)
             while(index++ < end){
                 result[index] = addressArray[index]
@@ -65,36 +62,46 @@ var AddressPage = React.createClass({
     getInitialState: function(){
         return {
             page: 1,
-            pageSize: 25,
+            pageSize: 5,
             pageSizeDefaults: [5,10,25,50,75,100]
         }
     },
     render: function(){
             var addresses = this.populateAddresses(this.props.addresses)
-            console.log(addresses)
             return (
                 <div>
-                    <AddressPageDropdown pageSizeDefaults={this.state.pageSizeDefaults} handleChange={this.handlePageSizeChange} page={this.state.page} />
+                    <AddressPageDropdown pageSizeDefaults={this.state.pageSizeDefaults} handleChange={this.handlePageSizeChange} page={this.state.page}  className="fl"/>
+                    <Button className="button" name="<< Previous" handleClick={this.handlePageChange.bind(null, -1)} />
+                    <Button className="button" name="Next >>" handleClick={this.handlePageChange.bind(null, 1)} />
                     <AddressList addresses={addresses} />
                 </div>
             )
     }
 })
 
+var Button = React.createClass({
+    render: function(){
+        return (
+            <a href="#" className={this.props.className} onClick={this.props.handleClick}>{this.props.name}</a>
+        )
+    }
+})
+
 var AddressPageDropdown = React.createClass({
     getDefaultProps: function() {
         return {
-            pageSizeDefaults: 25,
-            page: 1,
-            handleChange: function(){
-
-            }
+            pageSizeDefaults: null,
+            page: null
         }
     },
     render: function(){
+        var options = this.props.pageSizeDefaults.map(function(value, index){
+            return <option value={value} key={index}>{value} items</option>
+        })
+
         return(
             <div>
-                <select><option></option></select>
+                <select onChange={this.props.handleChange} className="this.pros.className">{options}</select>
             </div>
         )
     }
@@ -103,22 +110,17 @@ var AddressPageDropdown = React.createClass({
 var AddressList = React.createClass({
     getDefaultProps: function(){
         return {
-            addresses: [{
-              City: "Seattle",
-              FirstName: "First 0",
-              LastName: "Last",
-              State: "WA",
-              Street: "Sample street 123",
-              Zip: "98087"
-            }]
+            addresses: []
         }
     },
     render: function(){
-            var AddressTable = this.props.addresses.map(function(address){
-                return <AddressItem address={address}/>
+            var AddressTable = this.props.addresses.map(function(address, index){
+
+                return <AddressItem address={address} key={index}/>
             })
         return (
             <table>
+                 <tbody>
                 <tr>
                     <th>First Name</th>
                 <th>Last Name</th>
@@ -127,14 +129,26 @@ var AddressList = React.createClass({
     <th>Zip</th>
                 </tr>
                 {AddressTable}
+            </tbody>
             </table>
         )
     }
 })
 
 var AddressItem = React.createClass({
+    getDefaultProps: function(){
+        return {
+            address: {
+              City: "Loading...",
+              FirstName: "Loading...",
+              LastName: "Loading...",
+              State: "Loading...",
+              Street: "Loading...",
+              Zip: "Loading..."
+            }
+        }
+    },
     render: function(){
-        console.log(this.props.address)
         return (
           <tr><td>{this.props.address.FirstName}</td>
               <td>{this.props.address.LastName}</td>
