@@ -21,7 +21,7 @@ table {
     border-collapse: collapse;
     border-radius: 10px;
     border: 1px solid $border;
-    overflow: hidden;
+    width: 100%
 }
 
 td, th {
@@ -36,7 +36,33 @@ h1,h2,h3 {
     color: $dark-gray
 }
 
+select {
+    display: block;
+    border: 1px solid $border;
+    padding: .4em .8em;
+    height: 2em;
+}
+
+.count {
+    margin: 0 .4em;
+    display: inline-block;
+    font-size: .9em;
+}
+main {
+    width: 40em;
+    margin: auto;
+}
+
 // helper classes
+
+.button {
+    background-color: #333;
+    display: block;
+    padding: 0.4em .8em;
+    color: #fff;
+    text-decoration: initial;
+    font-size: .9em;
+}
 
 .light-gray-bg {
     background: $light-gray;
@@ -52,4 +78,11 @@ h1,h2,h3 {
 
 .mr {
     margin-right: .4em;
+}
+.mb {
+    margin-bottom: .4em;
+}
+
+.cb {
+    clear: both;
 }
