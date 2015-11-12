@@ -70,10 +70,13 @@ var AddressPage = React.createClass( {
 
     this.setState( { page: newPage } )
   },
+  getNumberOfPages: function(size){
+      return Math.floor( Number( this.props.total ) / size )
+  },
   handlePageSizeChange: function ( event ) {
 
     var newSize = Number( event.target.value )
-    var numberOfPages = Math.floor( Number( this.props.total ) / newSize )
+    var numberOfPages = this.getNumberOfPages(newSize)
 
     this.setState( {
       page: 1,
@@ -104,7 +107,7 @@ var AddressPage = React.createClass( {
         75,
         100
       ],
-      numberOfPages: 20
+      numberOfPages: null
     }
   },
   updateNumberOfPages: function () {
