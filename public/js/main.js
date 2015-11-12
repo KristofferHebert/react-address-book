@@ -119,9 +119,9 @@ var AddressPage = React.createClass({
         React.createElement(
           'p',
           { className: 'count' },
-          'Page',
+          'Page ',
           this.state.page,
-          ' of',
+          ' of ',
           this.state.numberOfPages
         ),
         React.createElement(Button, {

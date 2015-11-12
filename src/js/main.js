@@ -116,23 +116,21 @@ var AddressPage = React.createClass( {
     <section>
       <div className="cb">
         <Button
-                className="button fl mr"
-                name="<< Previous"
-                handleClick={ this.handlePageChange.bind(null, -1) } />
+            className="button fl mr"
+            name="<< Previous"
+            handleClick={ this.handlePageChange.bind(null, -1) } />
         <p className="count">
-          Page
-          { this.state.page } of
-          { this.state.numberOfPages }
+          Page { this.state.page } of { this.state.numberOfPages }
         </p>
         <Button
-                className="button fl mr"
-                name="Next >>"
-                handleClick={ this.handlePageChange.bind(null, 1) } />
+            className="button fl mr"
+            name="Next >>"
+            handleClick={ this.handlePageChange.bind(null, 1) } />
         <AddressPageDropdown
-                             pageSizeDefaults={ this.state.pageSizeDefaults }
-                             handleChange={ this.handlePageSizeChange }
-                             page={ this.state.page }
-                             className="fl mr cr" />
+             pageSizeDefaults={ this.state.pageSizeDefaults }
+             handleChange={ this.handlePageSizeChange }
+             page={ this.state.page }
+             className="fl mr cr" />
       </div>
       <div className="cb">
         <AddressList addresses={ addresses } />
