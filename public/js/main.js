@@ -132,7 +132,7 @@ var AddressPage = React.createClass({
           pageSizeDefaults: this.state.pageSizeDefaults,
           handleChange: this.handlePageSizeChange,
           page: this.state.page,
-          className: 'fl mr cr' })
+          className: 'fr mr' })
       ),
       React.createElement(
         'div',
@@ -169,6 +169,7 @@ var AddressPageDropdown = React.createClass({
         {
           value: value,
           key: index },
+        'Display ',
         value,
         ' items'
       );

@@ -1,29 +1,27 @@
-// Variables
+// variables
 
 $light-gray: #f9fafd;
 $gray: #282d35;
 $dark-gray: #373737;
 $border: rgba(0,0,0,.1);
+$primary-color: #ED3C65;
 
 // base classes
-
-
 body {
     color: $gray;
     font-size: 100%;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial',sans-serif;
     font-style: normal;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
 }
-
 table {
     border-collapse: collapse;
     border-radius: 10px;
     border: 1px solid $border;
-    width: 100%
+    width: 100%;
+    margin: .8em 0;
 }
-
 td, th {
     padding: 1.4em;
     border: 1px solid $border;
@@ -32,21 +30,21 @@ th {
     @extend .tc;
     @extend .light-gray-bg;
 }
-h1,h2,h3 {
-    color: $dark-gray
+h1, h2, h3 {
+    color: $dark-gray;
 }
-
 select {
     display: block;
     border: 1px solid $border;
     padding: .4em .8em;
     height: 2em;
 }
-
 .count {
     margin: 0 .4em;
     display: inline-block;
     font-size: .9em;
+    float: left;
+    line-height: 2em;
 }
 main {
     width: 40em;
@@ -56,33 +54,48 @@ main {
 // helper classes
 
 .button {
-    background-color: #333;
+    background-color: $primary-color;
     display: block;
     padding: 0.4em .8em;
     color: #fff;
     text-decoration: initial;
     font-size: .9em;
+    &:hover {
+        background-color: darken($primary-color,10%);
+    }
 }
-
 .light-gray-bg {
     background: $light-gray;
 }
-
 .tc {
     text-align: center;
 }
-
 .fl {
     float: left;
 }
-
+.fr {
+    float: right;
+}
 .mr {
     margin-right: .4em;
 }
 .mb {
     margin-bottom: .4em;
 }
-
-.cb {
+.cb:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
     clear: both;
+    height: 0;
+}
+.cb {
+    display: inline-block;
+}
+* html .cb {
+    height: 1%;
+}
+.cb {
+    display: block;
 }

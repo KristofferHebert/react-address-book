@@ -130,7 +130,7 @@ var AddressPage = React.createClass( {
              pageSizeDefaults={ this.state.pageSizeDefaults }
              handleChange={ this.handlePageSizeChange }
              page={ this.state.page }
-             className="fl mr cr" />
+             className="fr mr" />
       </div>
       <div className="cb">
         <AddressList addresses={ addresses } />
@@ -162,17 +162,17 @@ var AddressPageDropdown = React.createClass( {
   render: function () {
     var options = this.props.pageSizeDefaults.map( function ( value, index ) {
       return <option
-                     value={ value }
-                     key={ index }>
-               { value } items
+                 value={ value }
+                 key={ index }>
+               Display { value } items
              </option>
     } )
 
     return (
     <div>
       <select
-              onChange={ this.props.handleChange }
-              className={ this.props.className }>
+          onChange={ this.props.handleChange }
+          className={ this.props.className }>
         { options }
       </select>
     </div>
@@ -191,8 +191,8 @@ var AddressList = React.createClass( {
     var AddressTable = this.props.addresses.map( function ( address, index ) {
 
       return <AddressItem
-                          address={ address }
-                          key={ index } />
+                  address={ address }
+                  key={ index } />
     } )
     return (
     <table>
