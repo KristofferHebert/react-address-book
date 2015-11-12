@@ -1,30 +1,31 @@
 {
-    "name": "react-address-book",
-    "version": "1.0.0",
-    "description": "",
-    "main": "server.js",
-    "scripts": {
-        "build": "babel --presets es2015,react --watch src/js/main.js --out-file public/js/main.js",
-        "dev": "pm2-dev server.js",
-        "start": "node server.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/KristofferHebert/react-address-book.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/KristofferHebert/react-address-book/issues"
-    },
-    "homepage": "https://github.com/KristofferHebert/react-address-book#readme",
-    "dependencies": {
-        "body-parser": "^1.14.1",
-        "express": "^4.13.3",
-        "pm2": "^0.15.10"
-    },
-    "devDependencies": {
-        "babel-preset-es2015": "^6.1.2",
-        "babel-preset-react": "^6.1.2"
-    }
+  "name": "react-address-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build": "babel --presets es2015,react --watch src/js/main.js --out-file public/js/main.js",
+    "dev": "pm2-dev server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KristofferHebert/react-address-book.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KristofferHebert/react-address-book/issues"
+  },
+  "homepage": "https://github.com/KristofferHebert/react-address-book#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "pm2": "^0.15.10"
+  },
+  "devDependencies": {
+    "babel": "^6.0.15",
+    "babel-preset-es2015": "^6.1.2",
+    "babel-preset-react": "^6.1.2"
+  }
 }
