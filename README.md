@@ -1,13 +1,13 @@
-** About
+## About
 Paginated Address table built in React.js
 
-** Features
+## Features
 - Address caching for large address books
 - Development server
 - Compilers for JSX
 - Reusable components
 
-*** Getting start
+### Getting start
 
 In the terminal
 ```bash
@@ -15,7 +15,7 @@ npm install
 npm start
 ```
 
-*** Develop
+### Develop
 Launch development server and compile JSX.
 ```bash
 # launch server development mode
