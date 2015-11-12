@@ -89,7 +89,6 @@ var AddressPage = React.createClass({
     var end = this.state.page * this.state.pageSize - 1;
     var index = end - this.state.pageSize;
     index = this.state.page === 1 ? -1 : index;
-
     var result = Array(end);
     while (index++ < end) {
       result[index] = addressArray[index];
@@ -101,7 +100,7 @@ var AddressPage = React.createClass({
       page: 1,
       pageSize: 5,
       pageSizeDefaults: [5, 10, 25, 50, 75, 100],
-      numberOfPages: null
+      numberOfPages: 200
     };
   },
   updateNumberOfPages: function updateNumberOfPages() {
@@ -109,6 +108,7 @@ var AddressPage = React.createClass({
   },
   render: function render() {
     var addresses = this.populateAddresses(this.props.addresses);
+
     return React.createElement(
       'section',
       null,
